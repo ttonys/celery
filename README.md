@@ -2,6 +2,9 @@
 - Python==3.8
 - Celery==5.2.0
 
+## 配置
+- 修改config.example.py为config.py
+
 ## Celery不同版本对Python的支持
 - Python 2.6: Celery series 3.1 or earlier.
 - Python 2.5: Celery series 3.0 or earlier.
