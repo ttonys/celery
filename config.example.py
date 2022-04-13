@@ -2,6 +2,7 @@
 # @Time    : 2022/4/12 4:10 下午
 # @FileName: config.py
 # @Software: PyCharm
+from kombu import Queue, Exchange
 
 # redis基本配置信息
 REDIS_HOST = "127.0.0.1"
@@ -36,3 +37,14 @@ CELERYD_CONCURRENCY = 4
 CELERYD_MAX_TASKS_PER_CHILD = 40
 # celery默认队列名称
 CELERY_DEFAULT_QUEUE = "default"
+# celery时区配置，issues:https://github.com/celery/celery/issues/4842
+CELERY_TIMEZONE = "Asia/Shanghai"
+# celery是否使用utc时区
+CELERY_ENABLE_UTC = False
+# celery手动路由定义
+CELERY_QUEUES = (
+    Queue('demo06', Exchange("demo06"), routing_key='demo06'),
+)
+CELERY_ROUTES = {
+    "celery_basic_01.tasks.demo06": {"queue": "demo06", "routing_key": "demo06"}
+}
