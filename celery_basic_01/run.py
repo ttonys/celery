@@ -5,6 +5,7 @@
 import sys
 import time
 
+from celery.result import AsyncResult
 from .tasks import app
 from .tasks import demo01, demo02, demo03, demo05, demo06
 from utils.logger import Logger
@@ -69,7 +70,8 @@ def run_demo06():
     task = demo06.apply_async((2, 2))
     lg.logger.info(f"demo06任务状态: {task.state}, 任务结果{task.result}")
     time.sleep(3)
-    lg.logger.info(f"demo06任务状态: {task.state}, 任务结果{task.result}")
+    # AsyncResult方法可依据task.id查询任务状态、结果等
+    lg.logger.info(f"demo06任务状态: {AsyncResult(task.id).state}, 任务结果{task.result}")
     time.sleep(5)
     lg.logger.info(f"demo06任务状态: {task.state}, 任务结果{task.result}")
 
