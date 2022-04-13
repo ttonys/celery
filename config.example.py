@@ -48,3 +48,11 @@ CELERY_QUEUES = (
 CELERY_ROUTES = {
     "celery_basic_01.tasks.demo06": {"queue": "demo06", "routing_key": "demo06"}
 }
+# celery定时任务配置
+CELERY_BEAT_SCHEDULE = {
+    'cycle-30-seconds': {
+        'task': 'beat_demo01',
+        'schedule': 30.0,
+        'args': (16, 16)
+    },
+}

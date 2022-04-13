@@ -3,3 +3,4 @@
 *.pyc
 config.py
 .DS_Store
+celerybeat-schedule.db
