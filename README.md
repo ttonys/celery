@@ -18,10 +18,10 @@
 ### celery-basic-01
 celery基本使用.
 
-启动celery服务：
+启动celery服务，`-A`指定celery应用，`worker`启动应用，`-Q`指定路由队列（默认celery）
 
 ```shell
-celery -A celery_basic_01.tasks worker -l info
+celery -A celery_basic_01.tasks worker -l info -Q celery,demo05,demo06
 ```
 
 执行主函数：
