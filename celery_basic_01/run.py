@@ -3,6 +3,8 @@
 # @FileName: run.py
 # @Software: PyCharm
 import sys
+import time
+
 from .tasks import app
 from .tasks import demo01, demo02, demo03, demo05, demo06
 from utils.logger import Logger
@@ -64,7 +66,12 @@ def run_demo06():
     :return:
     """
     lg.logger.info(f"执行{sys._getframe().f_code.co_name}方法")
-    demo06.apply_async((2, 2))
+    task = demo06.apply_async((2, 2))
+    lg.logger.info(f"demo06任务状态: {task.state}, 任务结果{task.result}")
+    time.sleep(3)
+    lg.logger.info(f"demo06任务状态: {task.state}, 任务结果{task.result}")
+    time.sleep(5)
+    lg.logger.info(f"demo06任务状态: {task.state}, 任务结果{task.result}")
 
 
 def main():

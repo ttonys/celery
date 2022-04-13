@@ -83,5 +83,6 @@ def demo05(self, x, y):
 @app.task(bind=True, name='task_demo_06', queue='demo06')
 def demo06(self, x, y):
     lg.logger.info(f"当前方法名称：{sys._getframe().f_code.co_name} 当前任务id：{self.request.id}")
-    time.sleep(10)
+    self.update_state(state="PROGRESS")
+    time.sleep(5)
     return x + y - y
