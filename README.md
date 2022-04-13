@@ -5,6 +5,7 @@
 ## 开发配置
 - 修改config.example.py为config.py
 - 修改redis相关配置
+- `pip install -r requirements.txt`
 
 ## Celery不同版本对Python的支持
 - Python 2.6: Celery series 3.1 or earlier.
