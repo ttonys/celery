@@ -7,10 +7,16 @@ import time
 
 from celery import Celery
 from utils.logger import Logger
-from config import CELERY_BROKER, CELERY_BACKEND
+from config import CELERY_BROKER, CELERY_BACKEND, CELERY_TIMEZONE, CELERY_ENABLE_UTC, CELERY_ROUTES, CELERY_QUEUES
 
 # celery初始化基本配置
 app = Celery('celery_basic_01', broker=CELERY_BROKER, backend=CELERY_BACKEND)
+app.conf.update(
+    timezone=CELERY_TIMEZONE,
+    enable_utc=CELERY_ENABLE_UTC,
+    task_routes=CELERY_ROUTES,
+    task_queues=CELERY_QUEUES
+)
 lg = Logger()
 
 
@@ -65,3 +71,17 @@ def demo04(x, y):
     time.sleep(10)
     return x * y - y
 
+
+@app.task(bind=True, name='task_demo_05')
+def demo05(self, x, y):
+    lg.logger.info(f"当前方法名称：{sys._getframe().f_code.co_name} 当前任务id：{self.request.id}")
+    time.sleep(10)
+    return x + y - x
+
+
+# 手动绑定路由队列
+@app.task(bind=True, name='task_demo_06', queue='demo06')
+def demo06(self, x, y):
+    lg.logger.info(f"当前方法名称：{sys._getframe().f_code.co_name} 当前任务id：{self.request.id}")
+    time.sleep(10)
+    return x + y - y
